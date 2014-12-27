@@ -52,9 +52,9 @@
 		</div>
 	</nav>
 </div>
-<div class="container" style="padding-top: 30px">
+<div class="container" style="padding-top: 32px">
+	<?php echo $this->Session->flash(); ?>
 	<div class="col s12">
-		<?php echo $this->Session->flash(); ?>
 		<?php echo $this->fetch('content'); ?>
 	</div>
 </div>

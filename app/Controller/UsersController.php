@@ -9,7 +9,7 @@ class UsersController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('add');
+        $this->Auth->allow('add', 'logout');
     }
 
     public function index() {
@@ -29,7 +29,7 @@ class UsersController extends AppController {
             $this->User->create();
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash('ユーザー登録が完了しました');
-                return $this->redirect(array('action' => 'index'));
+                return $this->redirect(array('action' => 'login'));
             }
             $this->Session->setFlash('ユーザー登録できませんでした');
         }
@@ -68,5 +68,18 @@ class UsersController extends AppController {
         }
         $this->Session->setFlash('ユーザーを削除できませんでした');
         return $this->redirect(array('action' => 'index'));
+    }
+
+    public function login() {
+        if ($this->request->is('post')) {
+            if ($this->Auth->login()) {
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Session->setFlash('メールアドレスかパスワードが間違っています');
+        }
+    }
+
+    public function logout() {
+        return $this->redirect($this->Auth->logout());
     }
 }
