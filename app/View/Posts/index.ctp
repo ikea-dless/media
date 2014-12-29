@@ -1,9 +1,11 @@
-<div id="messages">
+<ul id="mes-par" class="collection with-header">
+    <li class="collection-header"><h4>First Names</h4></li>
     <?php foreach($messages as $message): ?>
-        <li><?php echo $message['Post']['name']; ?> :
-        <?php echo $message['Post']['message']; ?></li>
+        <li id="mes-chi" class="collection-item">
+            <?php echo $message['Post']['message']; ?>
+        </li>
     <?php endforeach; ?>
-</div>
+</ul>
 
 <form class="input-field" id="messageForm">
     <input id="nameInput" type="text" class="input-field" placeholder="Name" />
@@ -36,7 +38,7 @@
             type: "POST",
             data: json,
             success: function(data) {
-                console.log(data);
+                //console.log(data);
             },
             error: function(data) {
                 console.log(data);
@@ -53,7 +55,10 @@
 //        var content = newMsgContent + actualContent;
 //
 //        $("#messages").html(content);
-        var msg = data.message;
-        $("#messages").append($('<li>').text(msg));
+        getText = function() {
+            // ベタ書きしかできません
+            return '<li class="collection-item">' + data.message + '</li>';
+        }
+        $(getText()).appendTo("#mes-par").hide().fadeIn(1000);
     });
 </script>

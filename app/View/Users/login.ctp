@@ -1,4 +1,4 @@
-<div class="card-panel">
+<div class="card-panel" style="text-align: center;">
     <?php echo $this->Form->create('User'); ?>
     <div class="input-field">
         <?php echo $this->Form->input('email'); ?>

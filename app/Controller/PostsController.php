@@ -7,10 +7,10 @@
  */
 class PostsController extends AppController {
 
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow('add');
-    }
+//    public function beforeFilter() {
+//        parent::beforeFilter();
+//        $this->Auth->allow('add');
+//    }
 
     public function index() {
         $messages = $this->Post->find('all');
@@ -19,6 +19,7 @@ class PostsController extends AppController {
 
     public function add() {
         if ($this->request->is('post')) {
+            $this->request->data['user_id'] = $this->Session->read('Auth.User.id');
             $this->Post->save($this->request->data);
         }
     }
