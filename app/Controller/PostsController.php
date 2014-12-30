@@ -6,15 +6,29 @@
  * Time: 11:24
  */
 class PostsController extends AppController {
+    var $uses = array('Post', 'Category');
 
 //    public function beforeFilter() {
 //        parent::beforeFilter();
 //        $this->Auth->allow('add');
 //    }
 
-    public function index() {
-        $messages = $this->Post->find('all');
+    public function index($Category_id = null) {
+        if (!$Category_id) {
+            throw new BadRequestException('指定されたURLは見つかりません');
+        }
+        $thread = $this->Category->findById($Category_id);
+        $messages = $this->Post->find(
+            'all',
+            array(
+                'conditions' => array(
+                    'category_id' => $Category_id
+                )
+            )
+        );
+        $this->set('thread_title', $thread);
         $this->set('messages', $messages);
+        //debug($messages);
     }
 
     public function add() {

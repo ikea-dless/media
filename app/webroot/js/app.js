@@ -12,11 +12,11 @@ var io = socket.listen(server);
 
 io.sockets.on('connection', function(client) {
     console.log("New client !");
-
+    console.log(client);
     client.on('message', function(data) {
-        console.log('Message received ' + data.name + ":" + data.message);
+        console.log('Message received ' + data.message);
 
-        io.sockets.emit('message', {name: data.name, message: data.message});
+        io.sockets.emit('message', {message: data.message});
     });
 });
 

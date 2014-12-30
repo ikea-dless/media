@@ -1,5 +1,5 @@
 <ul id="mes-par" class="collection with-header">
-    <li class="collection-header"><h4>First Names</h4></li>
+    <li class="collection-header"><h4><?php echo $thread_title['Category']['name']; ?></h4></li>
     <?php foreach($messages as $message): ?>
         <li id="mes-chi" class="collection-item">
             <?php echo $message['Post']['message']; ?>
@@ -8,10 +8,10 @@
 </ul>
 
 <form class="input-field" id="messageForm">
-    <input id="nameInput" type="text" class="input-field" placeholder="Name" />
-    <input id="messageInput" type="text" class="input-field" placeHolder="Message" />
-
-    <input type="submit" value="Send" />
+    <input id="messageInput" type="text" class="input-field" placeHolder="Message" required/>
+    <button id="button-form" class="btn waves-effect waves-light" type="submit">
+        SUBMIT<i class="mdi-content-send right"></i>
+    </button>
 </form>
 
 
@@ -22,27 +22,37 @@
 <script type="text/javascript">
     var socket = io.connect( 'http://192.168.33.11:8080' );
 
+    getParam = function() {
+        var param = location.href.match(/\d*$/);
+        return param[0];
+    }
+
     $("#messageForm").submit(function() {
-        var nameVal = $("#nameInput").val();
         var msg = $("#messageInput").val();
 
-        socket.emit('message', {name: nameVal, message: msg});
+        socket.emit('message', {message: msg});
 
+        var button = $("#button-form");
+        button.attr("disabled", true);
         // Ajax call for saving datas
         var json = {
-            "name" : nameVal,
-            "message" : msg
+            "message" : msg,
+            "category_id" : getParam()
         }
         $.ajax({
             url: "http://" + location.hostname + "/media/posts/add",
             type: "POST",
             data: json,
             success: function(data) {
+                $("#messageInput").val('');
                 //console.log(data);
             },
             error: function(data) {
-                console.log(data);
-                alert("error " + data);
+                $("li:last-child").remove();
+                alert("通信エラーです。しばらく経ってから再度送信してください。");
+            },
+            complete: function() {
+                button.attr("disabled", false);
             }
         });
 
