@@ -27,6 +27,8 @@
         return param[0];
     }
 
+    socket.emit('init', {'room': getParam()});
+
     $("#messageForm").submit(function() {
         var msg = $("#messageInput").val();
 
@@ -49,7 +51,7 @@
             },
             error: function(data) {
                 $("li:last-child").remove();
-                alert("通信エラーです。しばらく経ってから再度送信してください。");
+                alert("通信エラーです。再度ログインするか、しばらく経ってから送信してください。");
             },
             complete: function() {
                 button.attr("disabled", false);
