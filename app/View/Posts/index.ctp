@@ -20,7 +20,7 @@
 <?php echo $this->Html->script('node_modules/socket.io/node_modules/socket.io-client/socket.io.js'); ?>
 
 <script type="text/javascript">
-    var socket = io.connect( 'http://192.168.33.11:8080' );
+    var socket = io.connect('http://' + location.hostname + ':8080');
 
     getParam = function() {
         var param = location.href.match(/\d*$/);
@@ -62,11 +62,7 @@
     });
 
     socket.on('message', function(data) {
-//        var actualContent = $( "#messages" ).html();
-//        var newMsgContent = '<li> <strong>' + data.name + '</strong> : ' + data.message + '</li>';
-//        var content = newMsgContent + actualContent;
-//
-//        $("#messages").html(content);
+        $("#messages").html(content);
         getText = function() {
             // ベタ書きしかできません
             return '<li class="collection-item">' + data.message + '</li>';
