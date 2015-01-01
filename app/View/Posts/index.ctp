@@ -27,12 +27,10 @@
         return param[0];
     }
 
-    socket.emit('init', {'room': getParam()});
-
     $("#messageForm").submit(function() {
         var msg = $("#messageInput").val();
 
-        socket.emit('message', {message: msg});
+        socket.emit('init', {'room': getParam()});
 
         var button = $("#button-form");
         button.attr("disabled", true);
@@ -46,6 +44,7 @@
             type: "POST",
             data: json,
             success: function(data) {
+                socket.emit('message', {message: msg});
                 $("#messageInput").val('');
                 //console.log(data);
             },
@@ -62,7 +61,7 @@
     });
 
     socket.on('message', function(data) {
-        $("#messages").html(content);
+        //console.log(data.message);
         getText = function() {
             // ベタ書きしかできません
             return '<li class="collection-item">' + data.message + '</li>';

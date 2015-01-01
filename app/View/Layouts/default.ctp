@@ -61,7 +61,7 @@
 <div id="footer">
 </div>
 <?php echo $this->Html->script('materialize'); ?>
-<script>
+<script type="text/javascript">
 	$(".button-collapse").sideNav();
 </script>
 </body>
