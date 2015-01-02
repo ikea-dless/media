@@ -1,7 +1,7 @@
 <div class="card-panel" style="text-align: center;">
     <?php echo $this->Form->create('User'); ?>
     <div class="input-field">
-        <?php echo $this->Form->input('email'); ?>
+        <?php echo $this->Form->input('username'); ?>
     </div>
     <div class="input-field">
         <?php echo $this->Form->input('password'); ?>

@@ -8,6 +8,21 @@
 App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 class User extends AppModel {
     public $validate = array(
+        'username' => array(
+            'alphaNumeric' => array(
+                'rule' => "/^[¥x20-¥x7F]+$/",
+                'message' => '半角英数で入力してください',
+            ),
+            'between' => array(
+                'rule'    => array('between', 2, 15),
+                'message' => '2~15文字で入力してください'
+            ),
+            'unique' => array(
+                'rule' => 'isUnique',
+                'message' => 'idが重複しています'
+            ),
+
+        ),
         'email' => array(
             'notempty'=>array(
                 'rule' =>array('notempty'),

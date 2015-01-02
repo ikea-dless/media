@@ -1,10 +1,7 @@
 <h4>Sign Up</h4>
 <?php echo $this->Form->create('User'); ?>
 <div class="input-field">
-    <?php echo $this->Form->input('email', array('div' => false)); ?>
-</div>
-<div class="input-field">
-    <?php echo $this->Form->input('email2', array('div' => false, 'label' => 'Please Email again')); ?>
+    <?php echo $this->Form->input('username', array('div' => false)); ?>
 </div>
 <div class="input-field">
     <?php echo $this->Form->input('password', array('div' => false)); ?>
