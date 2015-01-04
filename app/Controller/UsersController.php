@@ -82,4 +82,14 @@ class UsersController extends AppController {
     public function logout() {
         return $this->redirect($this->Auth->logout());
     }
+
+    public function getId() {
+        $this->autoRender = false;
+        if ($this->request->is('get')) {
+            if ($this->Session->check('Auth.User')) {
+                $username = $this->Session->read('Auth.User.username');
+                return $username;
+            }
+        }
+    }
 }

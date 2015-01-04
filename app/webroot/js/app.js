@@ -17,8 +17,9 @@ io.sockets.on('connection', function(client) {
         client.join(request.room);
     });
     client.on('message', function(data) {
-        console.log('Message received ' + data.message);
-        io.sockets.in(client.rooms[1]).emit('message', {message: data.message});
+        console.log(data);
+        console.log('Message received ' + data.message + ' from ' + data.username);
+        io.sockets.in(client.rooms[1]).emit('message', {message: data.message, username: data.username});
     });
 });
 
