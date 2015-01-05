@@ -6,7 +6,6 @@
 -->
 <html>
 <head>
-    <title>Directive by HTML5 UP</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -66,8 +65,16 @@
         <h3><?php echo $project['Project']['purpose']; ?></h3>
         <p style="padding-top: 15px;"><?php echo $project['Project']['message']; ?></p>
         <ul class="actions" style="padding-top: 15px;">
-            <li><?php echo $this->Html->link('応援する', array('action' => 'favorite'), array('class' => 'button')); ?></li>
+            <li><a class="button">応援する</a></li>
         </ul>
+        <?php
+            if (!empty($count)) {
+                echo '<p style="padding-top: 40px;">';
+                echo $count;
+                echo "人がこのプロジェクトを応援しています";
+                echo '</p>';
+            }
+        ?>
     </footer>
 </div>
 
@@ -91,6 +98,30 @@
     </div>
 </div>
 <script type="text/javascript">
+
+    getParam = function () {
+        var param = location.href.match(/\d*$/);
+        return param[0];
+    }
+    $(".button").click(function () {
+        var button = $(".button");
+        button.attr("disabled", true);
+
+        $.ajax({
+            url: "../../projects/favorite",
+            type: "POST",
+            data: {"id": getParam()},
+            success: function (data) {
+                toast(data, 4000);
+            },
+            error: function (data) {
+            },
+            complete: function () {
+                    button.attr("disabled", false);
+                }
+        });
+    });
+
     $(".button-collapse").sideNav();
     !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 </script>

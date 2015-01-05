@@ -6,7 +6,7 @@
  * Time: 07:03
  */
 class ProjectsController extends AppController {
-    var $uses = array('Project', 'Post');
+    var $uses = array('Project', 'Post', 'Favorite');
 
     public function add($id = null) {
         $post = $this->Post->findById($id);
@@ -31,8 +31,39 @@ class ProjectsController extends AppController {
 
     public function view($id = null) {
         $data = $this->Project->findById($id);
+        $count = $this->Favorite->findAllById($id);
+        $this->set('count', count($count));
         $this->set('project', $data);
-        //debug($data);
         $this->layout = "";
+    }
+
+    public function favorite() {
+        $this->autoRender = false;
+        if ($this->request->is('post')) {
+            $id = $this->request->data['id'];
+            $uid = $this->Session->read('Auth.User.id');
+            $ary = array(
+                'Favorite' => array(
+                    'project_id' => $id,
+                    'user_id' => $uid
+                )
+            );
+            $already = $this->Favorite->find(
+                'first',
+                array(
+                    'conditions' => array(
+                        'project_id' => $id,
+                        'user_id' => $uid
+                    )
+                )
+            );
+            if (empty($already)) {
+                if ($this->Favorite->save($ary)) {
+                    echo "応援しました！";
+                }
+            } else {
+                echo "既に応援していますよ";
+            }
+        }
     }
 }
