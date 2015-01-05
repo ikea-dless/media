@@ -24,7 +24,8 @@ class PostsController extends AppController {
                 'conditions' => array(
                     'category_id' => $Category_id
                 ),
-                'order' => array('Post.created ASC')
+                'order' => array('Post.created DESC'),
+                'limit' => 10
             )
         );
         $this->set('thread_title', $thread);
