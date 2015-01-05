@@ -23,7 +23,8 @@ class PostsController extends AppController {
             array(
                 'conditions' => array(
                     'category_id' => $Category_id
-                )
+                ),
+                'order' => array('Post.created ASC')
             )
         );
         $this->set('thread_title', $thread);
