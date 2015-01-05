@@ -16,6 +16,9 @@ class Post extends AppModel {
                 'rule'    => array('between', 2, 140),
                 'message' => '2~15文字で入力してください'
             ),
+            'notempty'=>array(
+                'rule' =>array('notempty')
+            ),
         )
     );
 }

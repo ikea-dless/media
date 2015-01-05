@@ -35,14 +35,14 @@
 	?>
 </head>
 <body>
-<div id="header">
+<div id="header"">
 	<nav>
 		<div class="nav-wrapper">
 			<a href="#" class="brand-logo" style="padding-left: 10px">Media</a>
 			<ul id="nav-mobile" class="right side-nav">
-				<li><a href="sass.html">Sass</a></li>
-				<li><a href="components.html">Components</a></li>
-				<li><a href="javascript.html">JavaScript</a></li>
+				<li><?php echo $this->Html->link('不満スレ', array('controller' => 'categories', 'action' => 'index')) ?></li>
+				<li><?php echo $this->Html->link('プロジェクト', array('controller' => 'projects', 'action' => 'index')) ?></li>
+				<li><?php echo $this->Html->link('ユーザー情報', array('controller' => 'users', 'action' => 'index')) ?></li>
 			</ul>
 
 			<!-- Include this line below -->

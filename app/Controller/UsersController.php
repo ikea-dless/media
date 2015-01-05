@@ -13,7 +13,8 @@ class UsersController extends AppController {
     }
 
     public function index() {
-        $this->set('users', $this->paginate());
+        $user = $this->User->findById($this->Session->read('Auth.User.id'));
+        $this->set('user', $user);
     }
 
     public function view($id = null) {
