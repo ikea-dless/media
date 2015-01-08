@@ -215,6 +215,9 @@
  * the cake shell command: cake schema create Sessions
  *
  */
+// SessionName変更
+	Configure::write('Session.cookie', 'MyPHP');
+
 	Configure::write('Session', array(
 		'defaults' => 'php'
 	));
