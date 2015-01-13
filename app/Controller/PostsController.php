@@ -25,7 +25,7 @@ class PostsController extends AppController {
                     'category_id' => $Category_id
                 ),
                 'order' => array('Post.created DESC'),
-                'limit' => 10
+                'limit' => 50
             )
         );
         $this->set('thread_title', $thread);
@@ -38,9 +38,7 @@ class PostsController extends AppController {
         if ($this->request->is('post')) {
             $this->request->data['user_id'] = $this->Session->read('Auth.User.id');
             if ($this->Post->save($this->request->data)) {
-                $this->set('result', 'save success');
-            } else {
-                $this->set('result', 'save filed');
+                echo $this->Post->getLastInsertID();
             }
         }
     }
